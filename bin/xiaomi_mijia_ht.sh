@@ -8,7 +8,6 @@ mqtthost="localhost"
 echo "get data from sensor"
 RET=1
 until [ ${RET} -eq 0 ]; do
-echo -n '.'
   data=$(
     /usr/bin/timeout 20 \
       /usr/bin/gatttool -b $address --char-write-req --handle=0x10 -n 0100 --listen | \
@@ -21,7 +20,6 @@ done
 echo "get battery data from sensor"
 RET=1
 until [ ${RET} -eq 0 ]; do
-echo -n '.'
   batteryData=$(
     /usr/bin/gatttool -b $address --char-read --handle=0x18 | \
       cut -c 34-35
