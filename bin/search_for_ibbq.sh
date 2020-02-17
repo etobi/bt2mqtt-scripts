@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
+cd $mydir
+
 pgrep ibbq.sh
 exit_status=$?
 if [[ ${exit_status} -eq 0 ]]; then
