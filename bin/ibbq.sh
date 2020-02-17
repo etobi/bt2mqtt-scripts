@@ -1,9 +1,8 @@
 #!/bin/bash
 
-mqtthost="$1"
-ibbqadress="$2"
-
+ibbqadress="$1"
 basetopic="ibbq/probe/"
+mqtthost="localhost"
 
 publish() {
   local probe value

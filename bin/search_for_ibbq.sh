@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mqtthost="$1"
+shift
+
 mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 cd $mydir
 
@@ -19,5 +22,5 @@ ibbq=$(echo -e "$output" | egrep "^Device" | grep iBBQ | cut -c 8-24)
 
 if [[ "$ibbq" != "" ]]; then
   echo "start ibbq"
-  action/ibbq.sh "$ibbq"
+  ./action/ibbq.sh "$mqtthost" "$ibbq"
 fi

@@ -1,15 +1,17 @@
 #!/bin/bash
 
-address="$1"
-sensorname="$2"
+mqtthost="$1"
+address="$2"
+
+sensorname="$address"
 basetopic="mijia/"
-mqtthost="localhost"
 maxretry=3
 
 data=""
 batteryData=""
 
 echo "get data from sensor"
+
 retry=0
 while true
 do
@@ -30,6 +32,7 @@ do
 done
 
 echo "get battery data from sensor"
+
 retry=0
 while true
 do
