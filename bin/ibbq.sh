@@ -73,10 +73,11 @@ sleep 1
 
 echo "get notifications"
 while IFS= read -r -t 10 newline; do
+    echo 'online' | publish 'status'
     echo $newline |
         grep "Notification handle = 0x0030" |
         parse_notification;
-    echo 'online' | publish 'status'
+
 done < <(
     gatttool -b "${ibbqadress}" --char-write-req --handle=0x0034 --value=0b0100000000 --listen
 )
