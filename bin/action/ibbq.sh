@@ -84,6 +84,7 @@ while :; do
     else
       break
     fi
+done < <(
     gatttool -b "${ibbqadress}" --char-write-req --handle=0x0034 --value=0b0100000000 --listen
   )
 
