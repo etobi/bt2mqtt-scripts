@@ -54,6 +54,8 @@ parse_notification() {
 }
 export -f parse_notification
 
+echo 'offline' | publish 'status'
+
 echo "connect ibbq"
 gatttool -b "${ibbqadress}" --char-write-req --handle=0x0029 --value=2107060504030201b8220000000000
 exit_status=$?
@@ -73,11 +75,15 @@ fi
 sleep 1
 
 echo "get notifications"
-while IFS= read -r -t 10 newline; do
-    echo 'online' | publish 'status'
-    echo $newline |
-  grep "Notification handle = 0x0030" |
-  parse_notification; done < <(
+while :; do
+    IFS= read -r -t 10 newline
+    status=$?
+    if test $status -eq 0 ; then
+      echo 'online' | publish 'status'
+      echo $newline | grep "Notification handle = 0x0030" | parse_notification
+    else
+      break
+    fi
     gatttool -b "${ibbqadress}" --char-write-req --handle=0x0034 --value=0b0100000000 --listen
   )
 
